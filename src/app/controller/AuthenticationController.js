@@ -5,7 +5,10 @@ import axios from 'axios';
 class AuthenticationController {
     static isAuthenticated() {
         if (localStorage.getItem(LocalStorageConstants.JWT_TOKEN) == null) {
-            return false;
+            return new Promise(
+                (resolve) => {
+                    resolve(false);
+                });
         }
         const config = AuthenticationController.getAuthorizationHeader();
         return axios.get(AppConstants.API_URL, config).then(

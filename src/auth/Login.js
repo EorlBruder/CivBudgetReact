@@ -29,7 +29,7 @@ class Login extends Component {
                 } else if (loginResponse.status === 200) {
                     localStorage.setItem(LocalStorageConstants.JWT_TOKEN, loginResponse.data);
                     const appPage = [];
-                    appPage.push(<Appscreen appContext={self.props.appContext}/>);
+                    appPage.push(<Appscreen parentContext={self.props.appContext}/>);
                     self.props.appContext.setState({loginPage: [], appPage: appPage});
                 } else if (loginResponse.status === 203) {
                     alert("username password do not match")

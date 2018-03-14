@@ -6,7 +6,7 @@ import RateMapper from "../model/RateMapper";
 class RatesController {
     findAll() {
         const authorizationHeader = AuthenticationController.getAuthorizationHeader();
-        return axios.get(AppConstants.API_URL + "rates", authorizationHeader).then(
+        return axios.get(AppConstants.API_URL + "rates/list", authorizationHeader).then(
             (response) => {
                 return response.data
             },
@@ -17,11 +17,25 @@ class RatesController {
         )
     }
 
+    add(rate) {
+        const payload = RateMapper.mapToDTO(rate);
+        console.log(payload);
+        const authorizationHeader = AuthenticationController.getAuthorizationHeader();
+        return axios.post(AppConstants.API_URL + "rates/add", payload, authorizationHeader).then(
+            (response) => {
+                console.log(response);
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+
     update(rate) {
         const payload = RateMapper.mapToDTO(rate);
         console.log(payload);
         const authorizationHeader = AuthenticationController.getAuthorizationHeader();
-        return axios.post(AppConstants.API_URL + "rates/update", payload, authorizationHeader).then(
+        return axios.put(AppConstants.API_URL + "rates/update", payload, authorizationHeader).then(
             (response) => {
                 console.log(response);
             },
@@ -32,10 +46,8 @@ class RatesController {
     }
 
     delete(rate) {
-        const payload = RateMapper.mapToDTO(rate);
-        console.log(payload);
         const authorizationHeader = AuthenticationController.getAuthorizationHeader();
-        return axios.post(AppConstants.API_URL + "rates/delete", payload, authorizationHeader).then(
+        return axios.delete(AppConstants.API_URL + "rates/delete/" + rate.id, authorizationHeader).then(
             (response) => {
                 console.log(response);
             },

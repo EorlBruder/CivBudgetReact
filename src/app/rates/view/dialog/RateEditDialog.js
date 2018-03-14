@@ -24,11 +24,20 @@ class RateEditDialog extends Component {
     }
 
     save() {
-        new RatesController().update(this.state.rate).then(
-            () => {
-                this.props.parentContext.load();
-            }
-        );
+        if (this.state.edit) {
+            new RatesController().update(this.state.rate).then(
+                () => {
+                    this.props.parentContext.load();
+                }
+            );
+        } else {
+            new RatesController().add(this.state.rate).then(
+                () => {
+                    this.props.parentContext.load();
+                }
+            );
+
+        }
         this.closeDialog();
 
     }

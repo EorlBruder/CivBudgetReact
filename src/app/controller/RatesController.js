@@ -35,7 +35,7 @@ class RatesController {
         const payload = RateMapper.mapToDTO(rate);
         console.log(payload);
         const authorizationHeader = AuthenticationController.getAuthorizationHeader();
-        return axios.put(AppConstants.API_URL + "rates/update", payload, authorizationHeader).then(
+        return axios.put(AppConstants.API_URL + "rates/update/" + rate.id, payload, authorizationHeader).then(
             (response) => {
                 console.log(response);
             },
